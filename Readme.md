@@ -6,7 +6,7 @@
 
 To use the SDK
 
-    composer require webpayby/payment_sdk    
+    composer require webpayby/webpayby-payment-sdk    
 
 # Usage
 
