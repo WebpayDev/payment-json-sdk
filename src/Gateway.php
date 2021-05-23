@@ -4,37 +4,43 @@ declare(strict_types=1);
 
 namespace Webpayby\Payment;
 
-use Webpayby\Payment\Domain\ParamMap;
-use Webpayby\Payment\Domain\PaymentData;
+use Exception;
 use Webpayby\Payment\Http\Client;
 
 class Gateway
 {
-    /** @var PaymentData */
-    private $paymentData;
     /* @var Client*/
     private $client;
 
-    /**
-     * Gateway constructor.
-     *
-     * @param string      $url
-     * @param PaymentData $paymentData
-     */
-    public function __construct(string $url, PaymentData $paymentData)
+    /** @var SignatureHandler */
+    private $signatureHandler;
+
+
+    public function __construct(string $secretKey, string $domainUrl)
     {
-        $this->paymentData = $paymentData;
-        $this->client = new Client($url);
+        $this->client = new Client($domainUrl);
+        $this->signatureHandler = new SignatureHandler($secretKey);
     }
 
     /**
-     * @throws \Throwable
+     * @param Payment $payment
+     * @return array
      */
-    public function sendRequest(): void
+    public function sendRequest(Payment $payment): array
     {
-        $body = [ParamMap::SCART => ''];
-        $body = array_merge($body, $this->paymentData->toArray());
+        $signature = $this->signatureHandler->signing($payment->getParams());
+        $payment->setSignature($signature);
 
-        echo $this->client->post($body);
+        try {
+            $response = $this->client->request($payment->getParams(), '/api/v1/payment');
+        } catch (\Throwable $e) {
+            $gatewayResponse = GatewayResponse::createErrorResponse($e->getMessage(), $e->getCode());
+
+            return $gatewayResponse->getData();
+        }
+
+        $gatewayResponse = GatewayResponse::create($response);
+
+        return $gatewayResponse->getData();
     }
 }

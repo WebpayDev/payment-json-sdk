@@ -6,18 +6,13 @@ namespace Webpayby\Payment\Http;
 
 use GuzzleHttp\Client as ClientGuzzle;
 use GuzzleHttp\Exception\RequestException;
+use Throwable;
 
 class Client
 {
-    /**
-     * @var Client
-     */
+    /** @var Client */
     private $client;
 
-    /*
-    * @param string $baseUrl
-    * @param array  $config
-    */
     public  function __construct(string $baseUrl, array $config = [])
     {
         $config['base_uri'] = $baseUrl;
@@ -25,17 +20,31 @@ class Client
     }
 
     /**
-     * @param array $body
-     * @param array $options
-     *
+     * @param array $data
+     * @param string|null $uri
      * @return string
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws Throwable
      */
-    public function post(array $body = [], array $options = []): string
+    public function request(array $data = [], ?string $uri = ''): string
     {
-        $options['form_params'] = $body;
-        $response = $this->client->request('POST', '/payment', $options);
+        try {
 
-        return $response->getBody()->__toString();
+            $response = $this->client->post($uri, [
+                'json' => $data,
+            ]);
+
+            return $response->getBody()->getContents();
+
+        } catch (RequestException $e) {
+
+            return $e->getResponse()->getBody()->getContents();
+
+        } catch (Throwable $e) {
+
+            throw $e;
+        }
     }
+
+
+
 }

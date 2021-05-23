@@ -9,43 +9,40 @@ require_once __DIR__.'/../vendor/autoload.php';
 use Webpayby\Payment\Enum\Currency;
 use Webpayby\Payment\Enum\Language;
 use Webpayby\Payment\Gateway;
-use Webpayby\Payment\Domain\PaymentData;
+use Webpayby\Payment\Payment;
 
-$billingId = '669661686';
-$secretKey = '1';
-$url = 'https://securesandbox.webpay.by/';
+$merchantId = '797613511';
+$secretKey = 'qq';
+$url = 'http://payment.local';
+//$url = 'https://securesandbox.webpay.by';
 
+$payment = new Payment($merchantId);
 
-$paymentData = new PaymentData($billingId, $secretKey);
-$paymentData
-    ->setTest(1)
-    ->setCurrency(Currency::BYN)
-    ->setLanguage(Language::RU)
-    ->setOrderNumber('SDK-TEST-'.date('dmyHis'));
-
-foreach (getFakeItems() as $item) {
-    $paymentData->addInvoiceItem($item['name'], $item['price'], $item['quantity']);
-}
-
-$gateway = new Gateway($url, $paymentData);
-$gateway->sendRequest();
+$payment
+    ->setCurrencyId(Currency::BYN)
+    ->setLanguageId(Language::EN)
+    ->setOrderNum('Unique-order-'.uniqid(time()))
+    ->setTotal(8.5);
 
 
+$gate = new Gateway($secretKey, $url);
+$response = $gate->sendRequest($payment);
+
+header('Content-Type: application/json');
+echo json_encode($response);
+exit;
 
 
-
-
-
-function getFakeItems(): array
-{
-    $items = [];
-    for ($i = 1; $i <= rand(1,4); $i++ ) {
-        $items[] = [
-            'name' => 'InvoiceItem'.$i,
-            'price' => floatval(rand(3,19).'.'.rand(1,9)),
-            'quantity' => rand(1,3)
-        ];
-    }
-
-    return $items;
-}
+//function getFakeItems(): array
+//{
+//    $items = [];
+//    for ($i = 1; $i <= rand(1,4); $i++ ) {
+//        $items[] = [
+//            'name' => 'InvoiceItem'.$i,
+//            'price' => floatval(rand(3,19).'.'.rand(1,9)),
+//            'quantity' => rand(1,3)
+//        ];
+//    }
+//
+//    return $items;
+//}
