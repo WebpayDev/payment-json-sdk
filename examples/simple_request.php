@@ -12,7 +12,7 @@ use Webpayby\Payment\Gateway;
 use Webpayby\Payment\Payment;
 
 $merchantId = '797613511';
-$secretKey = 'q';
+$secretKey = 'qq';
 
 $url = 'https://securesandbox.webpay.by';
 
