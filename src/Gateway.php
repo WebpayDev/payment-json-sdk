@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Webpayby\Payment;
 
-use Exception;
 use Webpayby\Payment\Http\Client;
 
 class Gateway

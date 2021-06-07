@@ -12,17 +12,27 @@ To use the SDK
 
 - Simple request
 ```php
-        $paymentData = new PaymentData(YOUR_BILLING_ID, YOUR_SECRET_KEY);
-        $paymentData
-            ->setTest(1)
-            ->setCurrency(Currency::BYN)
-            ->setLanguage(Language::RU)
-            ->setOrderNumber('SDK-TEST-'.date('dmyHis'));
+        $merchantId = 'YOUR_MERCHANT_ID';
+        $secretKey = 'YOUR_SECRET_KEY';
         
-        foreach (getFakeItems() as $item) {
-            $paymentData->addInvoiceItem($item['name'], $item['price'], $item['quantity']);
-        }
+        $url = 'https://securesandbox.webpay.by';
         
-        $gateway = new Gateway($url, $paymentData);
-        $gateway->sendRequest();
+        $payment = new Payment($merchantId);
+        
+        $payment
+            ->setCurrencyId(Currency::BYN)
+            ->setLanguageId(Language::EN)
+            ->setOrderNum(uniqid(time()))
+            ->setInvoiceItem('Item1', 4.5)
+            ->setInvoiceItem('Item2', 2, 2)
+            ->setTotal(8.5)
+            ->setReturnUrl('http://example.com/success')
+            ->setCancelReturnUrl('http://example.com/cancel')
+            ->setNotifyUrl('http://example.com/notify');
+        
+        
+        $gate = new Gateway($secretKey, $url);
+        $response = $gate->sendRequest($payment);
+
+        $redirectUrl = $response['redirectUrl'] ?? '';
 ```

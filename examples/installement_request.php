@@ -11,8 +11,8 @@ use Webpayby\Payment\Enum\Language;
 use Webpayby\Payment\Gateway;
 use Webpayby\Payment\Payment;
 
-$merchantId = '797613511';
-$secretKey = 'q';
+$merchantId = '391073101';
+$secretKey = '';
 
 $url = 'https://securesandbox.webpay.by';
 
@@ -22,6 +22,7 @@ $payment
     ->setCurrencyId(Currency::BYN)
     ->setLanguageId(Language::EN)
     ->setOrderNum(uniqid(time()))
+    ->setTerminal('99988871')
     ->setInvoiceItem('Item1', 4.5)
     ->setInvoiceItem('Item2', 2, 2)
     ->setTotal(8.5)

@@ -30,7 +30,7 @@ class ParamsMap
     public const SERVICE_NAME           = 'wsb_service_name';
     public const SERVICE_ACCOUNT        = 'wsb_service_account';
     public const SERVICE_FLOW           = 'wsb_service_flow';
-    public const START_SESS_DATA_TIME   = 'wsb_startsessdatetime';
+    public const START_SESS_DATE_TIME   = 'wsb_startsessdatetime';
     public const START_SESS_TIME        = 'wsb_startsesstime';
     public const ORDER_TAG              = 'wsb_order_tag';
     public const ORDER_CONTRACT         = 'wsb_order_contract';
@@ -93,7 +93,7 @@ class ParamsMap
             self::SERVICE_NAME,
             self::SERVICE_ACCOUNT,
             self::SERVICE_FLOW,
-            self::START_SESS_DATA_TIME,
+            self::START_SESS_DATE_TIME,
             self::START_SESS_TIME,
             self::ORDER_TAG,
             self::ORDER_CONTRACT,
