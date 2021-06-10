@@ -1,5 +1,5 @@
 {
-  "name": "webpayby/webpayby-payment-sdk",
+  "name": "webpayby/webpayby-payment-json-sdk",
   "description": "SDK for simple making payment request to Webpay",
   "type": "library",
   "require": {
