@@ -8,6 +8,8 @@
     "guzzlehttp/guzzle": "^7.0",
     "ext-json": "*"
   },
+  "prefer-stable": true,
+  "minimum-stability": "dev",
   "autoload": {
     "psr-4": {
       "Webpayby\\Payment\\": "src/"
