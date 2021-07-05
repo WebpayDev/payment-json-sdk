@@ -2,6 +2,7 @@
   "name": "webpayby/webpayby-payment-json-sdk",
   "description": "SDK for simple making payment request to Webpay",
   "type": "library",
+  "version": "1.0.1",
   "require": {
     "php": ">=7.1",
     "ext-openssl": "*",
