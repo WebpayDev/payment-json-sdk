@@ -14,6 +14,7 @@ To use the SDK
 ```php
         $merchantId = 'YOUR_MERCHANT_ID';
         $secretKey = 'YOUR_SECRET_KEY';
+        $siteUrl = 'http://example.com/';
         
         $url = 'https://securesandbox.webpay.by';
         
@@ -31,7 +32,9 @@ To use the SDK
             ->setNotifyUrl('http://example.com/notify');
         
         
-        $gate = new Gateway($secretKey, $url);
+        $gate = new Gateway($secretKey, $url, [
+            'headers' => ['Referer' => $siteUrl, 'Origin' => $siteUrl]
+        ]);
         $response = $gate->sendRequest($payment);
 
         $redirectUrl = $response['redirectUrl'] ?? '';
