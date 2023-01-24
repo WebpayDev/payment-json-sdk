@@ -15,9 +15,9 @@ class Gateway
     private $signatureHandler;
 
 
-    public function __construct(string $secretKey, string $domainUrl)
+    public function __construct(string $secretKey, string $domainUrl, array $config = [])
     {
-        $this->client = new Client($domainUrl);
+        $this->client = new Client($domainUrl, $config);
         $this->signatureHandler = new SignatureHandler($secretKey);
     }
 
