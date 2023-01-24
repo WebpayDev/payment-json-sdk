@@ -14,6 +14,7 @@ use Webpayby\Payment\Payment;
 
 $merchantId = '521876364';
 $secretKey = '';
+$siteUrl = 'http://example.com/';
 
 $url = 'https://securesandbox.webpay.by';
 
@@ -36,7 +37,9 @@ $payment
 ;
 
 
-$gate = new Gateway($secretKey, $url);
+$gate = new Gateway($secretKey, $url, [
+    'headers' => ['Referer' => $siteUrl, 'Origin' => $siteUrl]
+]);
 $response = $gate->sendRequest($payment);
 header('Content-Type: application/json');
 //echo json_encode($payment->getParams());exit;
