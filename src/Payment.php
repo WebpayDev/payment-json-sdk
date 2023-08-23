@@ -46,6 +46,12 @@ use Webpayby\Payment\Enum\ParamsMap;
  * @method $this setRecurringBindToken(string $recurringBindToken):self
  * @method $this setEncryptedData(string $encryptedData):self
  * @method $this setSignature(string $signature):self Set params signature
+ * @method $this set3DsPaymentOption(string $threeDsPaymentOption):self enum ['auto','force_3ds','force_3ds_only_auth_yes', 'without_3ds']
+ * @method $this setCardHalva(int $cardHalva):self enum [0,1]
+ * @method $this setCardNumberShort(string $cardNumberShort):self
+ * @method $this setOutputViaCorpocard(bool $outputViaCorpocard):self
+ * @method $this setOutputViaCorpocardMTB(bool $outputViaCorpocardMTB):self
+ * @method $this setTokenP2P(string $tokenP2P):self
  * phpcs:enable
  */
 class Payment

@@ -14,11 +14,15 @@ class Gateway
     /** @var SignatureHandler */
     private $signatureHandler;
 
+    /** @var EndpointHandler */
+    private $endpointHandler;
+
 
     public function __construct(string $secretKey, string $domainUrl)
     {
         $this->client = new Client($domainUrl);
         $this->signatureHandler = new SignatureHandler($secretKey);
+        $this->endpointHandler = new EndpointHandler($domainUrl);
     }
 
     /**
@@ -31,7 +35,7 @@ class Gateway
         $payment->setSignature($signature);
 
         try {
-            $response = $this->client->request($payment->getParams(), '/api/v1/payment');
+            $response = $this->client->request($payment->getParams(), $this->endpointHandler->getEndpoint($payment->getParams()));
         } catch (\Throwable $e) {
             $gatewayResponse = GatewayResponse::createErrorResponse($e->getMessage(), $e->getCode());
 
