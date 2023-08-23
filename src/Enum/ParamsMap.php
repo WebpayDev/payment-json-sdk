@@ -64,6 +64,12 @@ class ParamsMap
     public const ENCRYPTED_DATA         = 'wsb_encrypted_data';
     public const SIGNATURE              = 'wsb_signature';
     public const AJAX                   = 'ajax';
+    public const THREE_DS_PAYMENT_OPTION = 'wsb_3ds_payment_option';
+    public const CARD_HALVA = 'wsb_card_halva';
+    public const CARD_NUMBER_SHORT = 'wsb_card_number_short';
+    public const OUTPUT_VIA_CORPOCARD = 'wsb_output_via_corpocard';
+    public const OUTPUT_VIA_CORPOCARD_MTB = 'wsb_output_via_corpocard_mtb';
+    public const TOKEN_P2P = 'wsb_token_p2p';
 
     /**
      * @return array
@@ -122,6 +128,12 @@ class ParamsMap
             self::ENCRYPTED_DATA,
             self::SIGNATURE,
             self::AJAX,
+            self::THREE_DS_PAYMENT_OPTION,
+            self::CARD_HALVA,
+            self::CARD_NUMBER_SHORT,
+            self::OUTPUT_VIA_CORPOCARD,
+            self::OUTPUT_VIA_CORPOCARD_MTB,
+            self::TOKEN_P2P
         ];
     }
 }

@@ -15,11 +15,10 @@ To use the SDK
         $merchantId = 'YOUR_MERCHANT_ID';
         $secretKey = 'YOUR_SECRET_KEY';
         
-        $url = 'https://securesandbox.webpay.by';
-        
         $payment = new Payment($merchantId);
         
         $payment
+            ->setTest(1)
             ->setCurrencyId(Currency::BYN)
             ->setLanguageId(Language::EN)
             ->setOrderNum(uniqid(time()))
@@ -31,7 +30,7 @@ To use the SDK
             ->setNotifyUrl('http://example.com/notify');
         
         
-        $gate = new Gateway($secretKey, $url);
+        $gate = new Gateway($secretKey, RequestPoint::SANDBOX_PAYMENT);
         $response = $gate->sendRequest($payment);
 
         $redirectUrl = $response['redirectUrl'] ?? '';

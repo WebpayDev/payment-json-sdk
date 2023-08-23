@@ -31,6 +31,7 @@ class Client
 
             $response = $this->client->post($uri, [
                 'json' => $data,
+                'headers' => $this->getHeaders()
             ]);
 
             return $response->getBody()->getContents();
@@ -45,6 +46,15 @@ class Client
         }
     }
 
-
+    /**
+     * @return array[]
+     */
+    private function getHeaders(): array
+    {
+        return [
+            'Origin' => $_SERVER['HTTP_ORIGIN'] ?? '',
+            'Referer' => $_SERVER['HTTP_REFERER'] ?? '',
+        ];
+    }
 
 }
